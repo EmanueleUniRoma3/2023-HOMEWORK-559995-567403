@@ -1,33 +1,40 @@
 package it.uniroma3.diadia.giocatore;
 
+import it.uniroma3.diadia.*;
+
+
+
 import it.uniroma3.diadia.attrezzi.Attrezzo;
 
 public class Borsa {
 	public final static int DEFAULT_PESO_MAX_BORSA = 10;
-	private Attrezzo[] attrezzi;
-	private int numeroAttrezzi;
+	public Attrezzo[] attrezzi;
+	public int numeroAttrezzi;
 	private int pesoMax;
+	public IO io;
 
 	//over loading 
 
 	//costruttore secondario 
-	public Borsa() {
-		this(DEFAULT_PESO_MAX_BORSA);
+	public Borsa(IO io) {
+		this(DEFAULT_PESO_MAX_BORSA, io);
 
 	}
 
 
 	//costruttore primario
-	public Borsa(int pesoMax) {
+	public Borsa(int pesoMax, IO io) {
 		this.pesoMax = pesoMax;
-		this.attrezzi = new Attrezzo[10]; // speriamo che bastino...
+		this.attrezzi = new Attrezzo[10]; // array di attrezzi in borsa
 		this.numeroAttrezzi = 0;
+		this.io = io;
 	}
 
 	public boolean addAttrezzo(Attrezzo attrezzo) {
 
 		if (attrezzo != null) {
-			if (this.numeroAttrezzi==10)
+
+			if (this.numeroAttrezzi == attrezzi.length)
 				//Ho troppi attrezzi
 				return false;
 			//fa parte del giocatore
@@ -41,6 +48,7 @@ public class Borsa {
 				this.attrezzi[i] = attrezzo;
 				this.numeroAttrezzi++;
 				return true;
+
 			}
 		}
 		return false;
@@ -75,7 +83,7 @@ public class Borsa {
 
 		return peso;
 	}
-	
+
 	public boolean isEmpty() {
 		return this.numeroAttrezzi == 0;
 	}
@@ -90,7 +98,7 @@ public class Borsa {
 
 		// ---> TODO (implementare questo metodo) <---
 		if (isEmpty()) {
-			System.out.println("La borsa è vuota!!!");
+			io.mostraMessaggio("La borsa è vuota!!!");
 		}	
 		else {
 			a = getAttrezzo(nomeAttrezzo); //mi salvo il riferimento dell'attrezzo qui 
@@ -105,7 +113,7 @@ public class Borsa {
 
 			}
 			else 
-				System.out.println("L'attrezzo non c'è!!");
+				this.io.mostraMessaggio("L'attrezzo non c'è!!");
 		}
 
 		return a;
@@ -116,7 +124,8 @@ public class Borsa {
 		StringBuilder s = new StringBuilder();
 		if (!this.isEmpty()) {
 			s.append("Contenuto borsa ("+this.getPeso()+"kg/"+this.getPesoMax()+"kg): ");
-			for (int i= 0; i<this.numeroAttrezzi; i++)
+			for (int i= 0; i<this.attrezzi.length; i++)
+				if (attrezzi[i] != null)
 				s.append(attrezzi[i].toString()+" ");
 		}
 		else 

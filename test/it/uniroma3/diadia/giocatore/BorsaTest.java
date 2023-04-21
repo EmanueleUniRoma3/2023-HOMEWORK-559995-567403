@@ -5,6 +5,8 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import it.uniroma3.diadia.IO;
+import it.uniroma3.diadia.IOConsole;
 import it.uniroma3.diadia.attrezzi.Attrezzo;
 
 class BorsaTest {
@@ -26,13 +28,14 @@ class BorsaTest {
 	private Attrezzo proiettile;
 	private Attrezzo freccia;
 	private Attrezzo corona;
+	private IO io = new IOConsole();
 	
 	@BeforeEach
 	public void setUp() {
 		
-		borsaVuota = new Borsa();
-		borsaSemiPiena = new Borsa();
-		borsaPiena = new Borsa();
+		borsaVuota = new Borsa(io);
+		borsaSemiPiena = new Borsa(io);
+		borsaPiena = new Borsa(io);
 		
 		martello = new Attrezzo("martello", 1);
 		spada = new Attrezzo("spada", 1);

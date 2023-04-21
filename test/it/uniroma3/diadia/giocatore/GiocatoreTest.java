@@ -4,13 +4,17 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
 
+import it.uniroma3.diadia.IO;
+
 import org.junit.jupiter.api.BeforeEach;
 
 
 class GiocatoreTest {
 	
-	private Giocatore giocatore = new Giocatore();
-	private Giocatore giocatore0cfu = new Giocatore();
+	private IO io;
+	
+	private Giocatore giocatore = new Giocatore(io);
+	private Giocatore giocatore0cfu = new Giocatore(io);
 	
 	@BeforeEach 
 	

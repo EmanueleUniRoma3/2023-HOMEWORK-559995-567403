@@ -2,10 +2,7 @@ package it.uniroma3.diadia;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-
-
 import org.junit.jupiter.api.Test;
-
 import it.uniroma3.diadia.ambienti.*;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -13,8 +10,11 @@ import org.junit.jupiter.api.BeforeEach;
 
 class PartitaTest {
 	
-	private Partita vinta = new Partita();
-	private Partita persa = new Partita();
+	IO io = new IOConsole();
+	
+	private Partita vinta = new Partita(io);
+	private Partita persa = new Partita(io);
+	
 	private Stanza atrio = new Stanza("atrio");
 	private Stanza N11 = new Stanza("N11");
 	

@@ -18,17 +18,23 @@ public class Partita {
 	private Giocatore giocatore;
 	private Labirinto labirinto;
 	private Stanza stanzaVincente;
-
+	public IO io;
 
 
 	//quando creo una partita di conseguenza creo: Giocatore, un Labirinto
-	public Partita(){
+	public Partita(IO IOconsole){
 		this.finita = false;
-		this.giocatore = new Giocatore(); //quando creo la partita creo anche un giocatore 
+		this.io = IOconsole;
+		this.giocatore = new Giocatore(IOconsole); //quando creo la partita creo anche un giocatore 
 		this.labirinto = new Labirinto(); //quando creo la partito devo creare il labirinto, che avrà delle stanze di default
 		this.stanzaVincente = labirinto.getUscita();
+		
 	}
-	
+
+
+	public IO getIO() {
+		return this.io;
+	}
 
 	//per riprendere dalla partita il riferimento di giocatore
 	public Giocatore getGiocatore() {
@@ -48,7 +54,7 @@ public class Partita {
 		this.stanzaVincente = stanza;
 	}
 
-	
+
 	/**
 	 * Restituisce vero se e solo se la partita e' stata vinta
 	 * @return vero se partita vinta getStanzaVincente()
@@ -62,7 +68,18 @@ public class Partita {
 	 * @return vero se partita finita
 	 */
 	public boolean isFinita() {
-		return finita || vinta() || (this.giocatore.getCfuGioc()== 0);
+		if (vinta()) {
+			io.mostraMessaggio("Hai raggiunto la stanza vincente ! ");
+			return true;		
+		}
+		else if (this.giocatore.getCfuGioc() == 0) {
+			io.mostraMessaggio("Hai esaurito i crediti. Mi spiace, hai preso !");
+			return true;
+		}
+		else if (finita)
+			return true;
+		else
+			return false;
 	}
 
 	/**
