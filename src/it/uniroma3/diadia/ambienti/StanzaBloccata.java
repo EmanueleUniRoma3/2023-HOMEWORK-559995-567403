@@ -20,7 +20,7 @@ public class StanzaBloccata extends Stanza {
 
 	public String getNomeDirezioneBloccata() {
 
-		return nomeDirezioneBloccata;
+		return this.nomeDirezioneBloccata;
 
 	}
 
@@ -54,10 +54,10 @@ nome particolare (ad esempio "passepartout")*/
 
 	@Override
 	public String getDescrizione() {
-		
-			return "La direzione "+ this.nomeDirezioneBloccata + " è bloccata!"
-					+ "\nHai bisogno del Passepartout: " + this.chiave + ".\n" + super.getDescrizione()  ;
-		}
+
+		return "La direzione "+ this.nomeDirezioneBloccata + " è bloccata!"
+				+ "\nHai bisogno del Passepartout: " + this.chiave + ".\n" + super.getDescrizione()  ;
+	}
 
 
 
@@ -71,15 +71,16 @@ nome particolare (ad esempio "passepartout")*/
 	public Stanza getStanzaAdiacente(String dir) {
 
 		//se la direzione che richiedo è quella bloccata allora 
-		if (dir.equals(nomeDirezioneBloccata))
+		if (dir.equals(nomeDirezioneBloccata)) {
 			//faccio il controllo se ho la chiave
 			if(this.trovaPassepartout()){ 
-			//e ritorno la stanza adiacente	
-			return super.getStanzaAdiacente(dir);
+				//e ritorno la stanza adiacente	
+				return super.getStanzaAdiacente(dir);
 
-		} else {
+			} else {
 
-			return this; // ritorna questa stanza bloccata
+				return this; // ritorna questa stanza bloccata
+			}
 		}
 		else //se non è la direzione bloccata 
 			return super.getStanzaAdiacente(dir);

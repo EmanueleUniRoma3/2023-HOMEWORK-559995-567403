@@ -1,57 +1,69 @@
 package it.uniroma3.diadia.giocatore;
 
-import it.uniroma3.diadia.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
-
-
+import it.uniroma3.diadia.IO;
 import it.uniroma3.diadia.attrezzi.Attrezzo;
 
 public class Borsa {
 	public final static int DEFAULT_PESO_MAX_BORSA = 10;
-	public Attrezzo[] attrezzi;
+	private Map<String,Attrezzo> attrezzi;
 	public int numeroAttrezzi;
 	private int pesoMax;
 	public IO io;
 
-	//over loading 
+	//over loading
+	//jshell
 
 	//costruttore secondario 
 	public Borsa(IO io) {
 		this(DEFAULT_PESO_MAX_BORSA, io);
-
 	}
 
 
 	//costruttore primario
 	public Borsa(int pesoMax, IO io) {
 		this.pesoMax = pesoMax;
-		this.attrezzi = new Attrezzo[10]; // array di attrezzi in borsa
+		this.attrezzi = new HashMap<String,Attrezzo>(); // array di attrezzi in borsa
 		this.numeroAttrezzi = 0;
 		this.io = io;
 	}
 
 	public boolean addAttrezzo(Attrezzo attrezzo) {
+		if((attrezzo.getPeso() + this.getPeso()) <= this.pesoMax)
+			return this.attrezzi.put(attrezzo.getNome(), attrezzo) == null;//ho messo uguale a null perchè ggiungendolo la prima volta ritorna null
 
-		if (attrezzo != null) {
-
-			if (this.numeroAttrezzi == attrezzi.length)
-				//Ho troppi attrezzi
-				return false;
-			//fa parte del giocatore
-			//devo guardare nella borsa la lista degli attrezzi
-			else {
-				int i = 0; 
-				while (this.attrezzi[i] != null) {
-					i++;
-				}
-
-				this.attrezzi[i] = attrezzo;
-				this.numeroAttrezzi++;
-				return true;
-
-			}
-		}
 		return false;
+		//
+		//		if (attrezzo != null) {
+		//
+		//			if (this.numeroAttrezzi == attrezzi.length)
+		//				//Ho troppi attrezzi
+		//				return false;
+		//			//fa parte del giocatore
+		//			//devo guardare nella borsa la lista degli attrezzi
+		//			else {
+		//				int i = 0; 
+		//				while (this.attrezzi[i] != null) {
+		//					i++;
+		//				}
+		//
+		//				this.attrezzi[i] = attrezzo;
+		//				this.numeroAttrezzi++;
+		//				return true;
+		//
+		//			}
+		//		}
+		//		return false;
 	}
 
 
@@ -63,24 +75,17 @@ public class Borsa {
 
 	public Attrezzo getAttrezzo(String nomeAttrezzo) {
 		Attrezzo a = null;
-		for (int i= 0; i<attrezzi.length; i++) {
-			if (this.attrezzi[i] != null) {
-				if (this.attrezzi[i].getNome().equals(nomeAttrezzo)) {
-					a = attrezzi[i];
-					return a;
-				}
-			}
-		}
+		a = this.attrezzi.get(nomeAttrezzo);
 		return a;
 	}
 
 
 	public int getPeso() {
 		int peso = 0;
-		for (int i= 0; i<this.attrezzi.length; i++)
-			if (attrezzi[i] != null) 
-				peso += this.attrezzi[i].getPeso();
 
+		for(Attrezzo a : this.attrezzi.values()) {
+			peso += a.getPeso();
+		}
 		return peso;
 	}
 
@@ -89,47 +94,210 @@ public class Borsa {
 	}
 
 	public boolean hasAttrezzo(String nomeAttrezzo) {
-		return this.getAttrezzo(nomeAttrezzo)!=null;
+
+		return this.getAttrezzo(nomeAttrezzo) != null;
 	}
 
 	public Attrezzo removeAttrezzo(String nomeAttrezzo) {
+
 		Attrezzo a = null;
-		int i=0;
 
-		// ---> TODO (implementare questo metodo) <---
-		if (isEmpty()) {
-			io.mostraMessaggio("La borsa è vuota!!!");
-		}	
-		else {
-			a = getAttrezzo(nomeAttrezzo); //mi salvo il riferimento dell'attrezzo qui 
-			//ora devo rimuovere l'attrezzo dalla borsa
-			if (a != null) {
-				//io devo entrare nel while sia quando è null sia quando non è uguale
-				while(attrezzi[i] == null || !attrezzi[i].getNome().equals(a.getNome())) {
-					i++;
-				}
-				this.attrezzi[i] = null;
-				this.numeroAttrezzi--;
+		if(this.attrezzi.containsKey(nomeAttrezzo)) 
+			//rimuovo attrezzo e lo ritorno
+			a = this.attrezzi.remove(nomeAttrezzo);
 
-			}
-			else 
-				this.io.mostraMessaggio("L'attrezzo non c'è!!");
-		}
+		else
+			io.mostraMessaggio("Attrezzo non trovato in borsa! ");
+
+
+
+
+
+
+		//		int i=0;
+		//
+		//		// ---> TODO (implementare questo metodo) <---
+		//		if (isEmpty()) {
+		//			io.mostraMessaggio("La borsa è vuota!!!");
+		//		}	
+		//		else {
+		//			a = getAttrezzo(nomeAttrezzo); //mi salvo il riferimento dell'attrezzo qui 
+		//			//ora devo rimuovere l'attrezzo dalla borsa
+		//			if (a != null) {
+		//				//io devo entrare nel while sia quando è null sia quando non è uguale
+		//				while(attrezzi[i] == null || !attrezzi[i].getNome().equals(a.getNome())) {
+		//					i++;
+		//				}
+		//				this.attrezzi[i] = null;
+		//				this.numeroAttrezzi--;
+		//
+		//			}
+		//			else 
+		//				this.io.mostraMessaggio("L'attrezzo non c'è!!");
+		//		}
 
 		return a;
 	}
 
+	//STAMPA MAPPE ()
+	public String toString(Map<Integer, Set<Attrezzo>> mappaOrdinata) {
 
-	public String toString() {
-		StringBuilder s = new StringBuilder();
-		if (!this.isEmpty()) {
-			s.append("Contenuto borsa ("+this.getPeso()+"kg/"+this.getPesoMax()+"kg): ");
-			for (int i= 0; i<this.attrezzi.length; i++)
-				if (attrezzi[i] != null)
-				s.append(attrezzi[i].toString()+" ");
+		if (!this.attrezzi.isEmpty()) {
+			StringBuilder risultato = new StringBuilder();
+			Set<Integer> insieme = mappaOrdinata.keySet();
+			Iterator<Integer> iter = insieme.iterator();
+			
+			risultato.append("Contenuto borsa ("+this.getPeso()+"kg/"+this.getPesoMax()+"kg): ");
+			
+			while(iter.hasNext()) {
+			Integer chiave = iter.next();
+			Set<Attrezzo> insiemeAttrezzi = mappaOrdinata.get(chiave);
+			Iterator<Attrezzo> it = insiemeAttrezzi.iterator();
+			
+			risultato.append("(" + chiave + ", { " );//
+			while(it.hasNext()) {
+			Attrezzo a = it.next();
+			risultato.append(a.getNome()+ " ");
+			if(it.hasNext())
+				risultato.append(", ");
+			}
+			risultato.append("} )");
+			if(iter.hasNext())
+				risultato.append(" ; ");
+			}
+			return risultato.toString();
 		}
-		else 
-			s.append("Borsa vuota");
-		return s.toString();
+		return "Borsa vuota";
+
+
+		//		StringBuilder s = new StringBuilder();
+		//		
+		//		if (!this.attrezzi.isEmpty()) { //se non è vuota
+		//
+		//			s.append("Contenuto borsa ("+this.getPeso()+"kg/"+this.getPesoMax()+"kg): ");
+		//
+		//			for(Attrezzo a : this.attrezzi.values())
+		//			s.append(a.getNome()+ " (" + a.getPeso()+"kg) " );
+		//		}
+		//		else 
+		//			s.append("Borsa vuota");
+		//		return s.toString();
 	}
+
+	//STAMPA LE LISTE [ ....... ]
+	public String toString(List<Attrezzo> lista) {
+		
+		if (!this.attrezzi.isEmpty()) {
+			StringBuilder risultato = new StringBuilder();
+			
+			risultato.append("Contenuto borsa ("+this.getPeso()+"kg/"+this.getPesoMax()+"kg): [ ");
+			Iterator<Attrezzo> iter = lista.iterator();
+			
+			
+			while(iter.hasNext()) {
+				risultato.append(iter.next().getNome());
+				if(iter.hasNext())
+					risultato.append(", ");
+			}
+			risultato.append(" ]");
+			
+			return risultato.toString();
+
+		}		
+		
+		return "Borsa vuota";
+	}
+	
+	//STAMPA GLI INSIEMI { ..... }
+	public String toString(SortedSet<Attrezzo> insieme) {
+
+		if (!this.attrezzi.isEmpty()) {
+			StringBuilder risultato = new StringBuilder();
+			
+			risultato.append("Contenuto borsa ("+this.getPeso()+"kg/"+this.getPesoMax()+"kg): { ");
+			
+			Iterator<Attrezzo> iter = insieme.iterator();
+			
+			while(iter.hasNext()) {
+				Attrezzo a = iter.next();
+				risultato.append(a.getNome());
+				if(iter.hasNext())
+					risultato.append(", ");
+			}
+			risultato.append(" } ");
+			
+			return risultato.toString();
+		}
+		return "Borsa vuota";
+	}		
+  
+	
+
+
+	public List<Attrezzo> getContenutoOrdinatoPerPeso(){
+		//contenuto ordinato per peso		
+		//ho la lista degli attrezzi
+		List<Attrezzo> lista = new ArrayList<Attrezzo>(this.attrezzi.values());
+		ComparatoreEsterno cmp = new ComparatoreEsterno();
+
+		//devo ordinarla in base a un criterio: Esterno
+		Collections.sort(lista, cmp);
+
+		//ritorno la lista ordinata
+		return lista;
+	}
+	
+	
+	public SortedSet<Attrezzo> getInsiemeOrdinatoPerPeso(){
+
+		ComparatoreEsterno cmp = new ComparatoreEsterno();
+		SortedSet<Attrezzo> insiemeAttrezzi = new TreeSet<Attrezzo>(cmp);
+
+		insiemeAttrezzi.addAll(this.attrezzi.values()); //risultato.addAll(This.attrezzi.values());
+
+
+		return insiemeAttrezzi;
+
+	}
+	
+	
+
+	public SortedSet<Attrezzo> getContenutoOrdinatoPerNome(){
+
+		ComparatorePerNome cmp = new ComparatorePerNome();
+		SortedSet<Attrezzo> insiemeAttrezzi = new TreeSet<Attrezzo>(cmp);
+
+		insiemeAttrezzi.addAll(this.attrezzi.values()); //risultato.addAll(This.attrezzi.values());
+
+
+		return insiemeAttrezzi;
+
+	}
+
+	public Map<Integer,Set<Attrezzo>> getContenutoRaggruppatoPerPeso(){
+
+		Map<Integer,Set<Attrezzo>> nuovaMappa = new HashMap<Integer, Set<Attrezzo>>();
+
+		//mi itero la lista di attrezi che ho 
+		for(Attrezzo a : this.attrezzi.values()) {
+			//se la chiave è presente
+			if(nuovaMappa.containsKey(a.getPeso())){
+				nuovaMappa.get(a.getPeso()).add(a); //se la chiave peso è presente aggiungo solo l'attrezzo nell'insieme associato al peso
+			}
+			else {
+				Set<Attrezzo> insieme = new HashSet<Attrezzo>();
+				insieme.add(a);//aggiungo l'attrezzo
+				//inserisco all'interno della mappa la coppia chiave-valore
+				nuovaMappa.put(a.getPeso(), insieme);
+
+			}
+
+		}
+
+		return nuovaMappa;
+	}
+
+
+
+
 }

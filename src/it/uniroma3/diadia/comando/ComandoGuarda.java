@@ -18,7 +18,7 @@ public class ComandoGuarda implements Comando {
 		
 		io.mostraMessaggio(borsa.toString()); //mi da l'elenco degli attrezzi
 		io.mostraMessaggio("Cfu giocatore: " + partita.getGiocatore().getCfuGioc()); //Vedo i CFU del Giocatore
-		io.mostraMessaggio(partita.getLabirinto().getStanzaCorrente().getDescrizione()); //Vedo il nome della stanzaCorrente
+		io.mostraMessaggio(partita.getGiocatore().getPosizione().getDescrizione()); //Vedo il nome della stanzaCorrente
 		
 	}
 

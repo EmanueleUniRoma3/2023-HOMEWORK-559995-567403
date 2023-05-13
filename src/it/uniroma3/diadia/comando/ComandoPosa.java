@@ -18,7 +18,7 @@ public class ComandoPosa implements Comando {
 		//devo eliminare dalla borsa e posare nella stanza
 		Borsa borsa = partita.getGiocatore().getBorsa();
 
-		Stanza stanzaCorrente = partita.getLabirinto().getStanzaCorrente();
+		Stanza stanzaCorrente = partita.getGiocatore().getPosizione();
 
 		if (nomeAttrezzo != null) {
 

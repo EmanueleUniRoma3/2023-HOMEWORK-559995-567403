@@ -22,7 +22,7 @@ public class LabirintoTest {
 	
 	@Test
 	public void testGetStanzaCorrente() {
-		assertEquals(atrio.getNome(), labirinto.getStanzaCorrente().getNome());	
+		assertEquals(atrio.getNome(), labirinto.getStanzaIniziale().getNome());	
 	}
 	
 	@Test

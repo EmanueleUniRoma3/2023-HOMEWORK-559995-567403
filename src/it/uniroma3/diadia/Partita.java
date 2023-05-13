@@ -1,6 +1,7 @@
 package it.uniroma3.diadia;
 
 import it.uniroma3.diadia.ambienti.Labirinto;
+import it.uniroma3.diadia.ambienti.LabirintoBuilder;
 import it.uniroma3.diadia.ambienti.Stanza;
 import it.uniroma3.diadia.giocatore.Giocatore;
 /**
@@ -16,7 +17,7 @@ public class Partita {
 
 	private boolean finita;
 	private Giocatore giocatore;
-	private Labirinto labirinto;
+	private Labirinto lab; 
 	private Stanza stanzaVincente;
 	public IO io;
 
@@ -25,9 +26,11 @@ public class Partita {
 	public Partita(IO IOconsole){
 		this.finita = false;
 		this.io = IOconsole;
-		this.giocatore = new Giocatore(IOconsole); //quando creo la partita creo anche un giocatore 
-		this.labirinto = new Labirinto(); //quando creo la partito devo creare il labirinto, che avrà delle stanze di default
-		this.stanzaVincente = labirinto.getUscita();
+		//this.labirinto = new LabirintoBuilder();//quando creo la partito devo creare il labirinto, che avrà delle stanze di default
+		this.lab = new LabirintoBuilder()
+				.getLabirinto();
+		this.giocatore = new Giocatore(IOconsole, lab.getStanzaIniziale()); //quando creo la partita creo anche un giocatore 
+		this.stanzaVincente = lab.getUscita();
 		
 	}
 
@@ -43,7 +46,7 @@ public class Partita {
 
 	//per riprendere dalla partita il riferimento di Labirinto
 	public Labirinto getLabirinto() {
-		return this.labirinto;
+		return this.lab;
 	}
 
 	public Stanza getStanzaVincente() {
@@ -60,7 +63,7 @@ public class Partita {
 	 * @return vero se partita vinta getStanzaVincente()
 	 */
 	public boolean vinta() {
-		return labirinto.getStanzaCorrente() == labirinto.getUscita();
+		return this.giocatore.getPosizione() == this.stanzaVincente ;
 	}
 
 	/**

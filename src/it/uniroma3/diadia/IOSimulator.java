@@ -1,30 +1,32 @@
 package it.uniroma3.diadia;
 
-public class IOSimulator implements IO {
+import java.util.LinkedList;
+import java.util.List;
 
+public class IOSimulator implements IO{
+	private List<String> righeDaLeggere;
+	private List<String> stampeEffettuate;
 	
-	String comandiLetti[];
-	private int indiceProxComando;
-	
-	
-	
-	public IOSimulator(String...comandiLetti) {
-		this.comandiLetti = comandiLetti;
-		this.indiceProxComando = 0;
+	public IOSimulator(List<String> righeDaLeggere) {
+		this.righeDaLeggere = righeDaLeggere;
+		this.stampeEffettuate = new LinkedList<String>();
 	}
-
+	
 	@Override
-	public void mostraMessaggio(String msg) {
-		// TODO Auto-generated method stub
-		
+	public void mostraMessaggio(String messaggio) {
+		this.stampeEffettuate.add(messaggio);
 	}
 
 	@Override
 	public String leggiRiga() {
-		if (this.comandiLetti.length == 0)
-			return null;
-		else
-		return this.comandiLetti[this.indiceProxComando++];
+		if(!this.righeDaLeggere.isEmpty())
+			return this.righeDaLeggere.remove(0);
+		return null;
 	}
-
+	
+	public String nextMessaggio() {
+		if(!this.stampeEffettuate.isEmpty())
+			return this.stampeEffettuate.remove(0);
+		return null;
+	}
 }

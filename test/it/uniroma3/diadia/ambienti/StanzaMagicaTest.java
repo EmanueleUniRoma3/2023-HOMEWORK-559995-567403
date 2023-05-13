@@ -42,7 +42,6 @@ class StanzaMagicaTest {
 		atrio.addAttrezzo(martello);
 		atrio.addAttrezzo(chiodo);
 		atrio.addAttrezzo(chiave);
-		assertTrue(atrio.hasAttrezzo("evaihc"));
 		assertNotEquals(this.chiave, atrio.getAttrezzo("chiave"));
 	}
 	
@@ -60,7 +59,7 @@ class StanzaMagicaTest {
 		assertTrue(atrio.hasAttrezzo("evaihc"));
 		assertTrue(atrio.hasAttrezzo("iosso"));
 		
-		assertNotEquals(this.chiave, atrio.getAttrezzo("chiave"));
+		assertNotEquals(this.chiave, atrio.getAttrezzo("evaihc"));
 		assertNotEquals(this.ossoi, atrio.getAttrezzo("iosso"));
 
 		

@@ -10,10 +10,10 @@ public class ComandoPrendi implements Comando {
 
 	private String nomeAttrezzo;
 
-//	public ComandoPrendi(String nomeAttrezzo) {
-//		this.nomeAttrezzo = nomeAttrezzo;
-//	}
-	
+	//	public ComandoPrendi(String nomeAttrezzo) {
+	//		this.nomeAttrezzo = nomeAttrezzo;
+	//	}
+
 	@Override
 	public void esegui(Partita partita) {
 		// TODO Auto-generated method stub
@@ -22,7 +22,7 @@ public class ComandoPrendi implements Comando {
 
 		Borsa borsa = partita.getGiocatore().getBorsa();
 
-		Stanza stanzaCorrente = partita.getLabirinto().getStanzaCorrente();
+		Stanza stanzaCorrente = partita.getGiocatore().getPosizione();
 
 		//se ti passo un attrezzo allora cerco il suo indirizzo in attrezzi sta
 		Attrezzo a = stanzaCorrente.getAttrezzo(nomeAttrezzo);
@@ -31,11 +31,11 @@ public class ComandoPrendi implements Comando {
 		if (borsa != null && stanzaCorrente != null && a != null) {
 			//verifica quanto pesa l'attrezzo
 			//ho spostato il contatore del peso qui e anche quello del numero attrezzi massimo
-			if (a.getPeso() + borsa.getPeso() <= borsa.getPesoMax() && borsa.numeroAttrezzi < borsa.attrezzi.length) {
+			if (a.getPeso() + borsa.getPeso() <= borsa.getPesoMax()) {
 				//non pesa troppo
 				stanzaCorrente.removeAttrezzo(a);
-				if(borsa.addAttrezzo(a))
-					io.mostraMessaggio("Attrezzo aggiunto in borsa !!");
+				borsa.addAttrezzo(a); 
+				io.mostraMessaggio("Attrezzo aggiunto in borsa !!");
 			}
 			//ho aggiunto una stampa per dire che pesa troppo 
 			else

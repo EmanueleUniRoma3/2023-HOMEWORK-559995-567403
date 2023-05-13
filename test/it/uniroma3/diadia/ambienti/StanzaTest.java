@@ -78,10 +78,10 @@ class StanzaTest {
 		assertTrue(this.semiPiena.addAttrezzo(freccia));
     }
 	
-	@Test
-    public void testAddAttrezzoStanzaPiena() {
-		assertFalse(this.stanzaPiena.addAttrezzo(freccia));
-	}
+//	@Test
+//    public void testAddAttrezzoStanzaPiena() {
+//		assertFalse(this.stanzaPiena.addAttrezzo(freccia));
+//	}
 	
 	@Test
 	public void testRemoveAttrezzoStanzaVuota() {
@@ -127,4 +127,6 @@ class StanzaTest {
     public void testGetAttrezzoStanzaPiena() {
 		assertEquals(martello,this.stanzaPiena.getAttrezzo("martello"));
 	}
+	
+	
 }

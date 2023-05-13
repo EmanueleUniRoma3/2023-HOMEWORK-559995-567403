@@ -6,7 +6,6 @@ public class StanzaBuia extends Stanza {
 
 	public StanzaBuia(String nome) {
 		super(nome);
-		// TODO Auto-generated constructor stub
 		this.attrezzo = "lanterna"; //nome attrezzo per vedere dentro la stanza non buia
 	}
 
