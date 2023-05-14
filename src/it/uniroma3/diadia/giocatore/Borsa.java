@@ -43,27 +43,6 @@ public class Borsa {
 			return this.attrezzi.put(attrezzo.getNome(), attrezzo) == null;//ho messo uguale a null perchè ggiungendolo la prima volta ritorna null
 
 		return false;
-		//
-		//		if (attrezzo != null) {
-		//
-		//			if (this.numeroAttrezzi == attrezzi.length)
-		//				//Ho troppi attrezzi
-		//				return false;
-		//			//fa parte del giocatore
-		//			//devo guardare nella borsa la lista degli attrezzi
-		//			else {
-		//				int i = 0; 
-		//				while (this.attrezzi[i] != null) {
-		//					i++;
-		//				}
-		//
-		//				this.attrezzi[i] = attrezzo;
-		//				this.numeroAttrezzi++;
-		//				return true;
-		//
-		//			}
-		//		}
-		//		return false;
 	}
 
 
@@ -108,34 +87,6 @@ public class Borsa {
 
 		else
 			io.mostraMessaggio("Attrezzo non trovato in borsa! ");
-
-
-
-
-
-
-		//		int i=0;
-		//
-		//		// ---> TODO (implementare questo metodo) <---
-		//		if (isEmpty()) {
-		//			io.mostraMessaggio("La borsa è vuota!!!");
-		//		}	
-		//		else {
-		//			a = getAttrezzo(nomeAttrezzo); //mi salvo il riferimento dell'attrezzo qui 
-		//			//ora devo rimuovere l'attrezzo dalla borsa
-		//			if (a != null) {
-		//				//io devo entrare nel while sia quando è null sia quando non è uguale
-		//				while(attrezzi[i] == null || !attrezzi[i].getNome().equals(a.getNome())) {
-		//					i++;
-		//				}
-		//				this.attrezzi[i] = null;
-		//				this.numeroAttrezzi--;
-		//
-		//			}
-		//			else 
-		//				this.io.mostraMessaggio("L'attrezzo non c'è!!");
-		//		}
-
 		return a;
 	}
 
@@ -168,20 +119,6 @@ public class Borsa {
 			return risultato.toString();
 		}
 		return "Borsa vuota";
-
-
-		//		StringBuilder s = new StringBuilder();
-		//		
-		//		if (!this.attrezzi.isEmpty()) { //se non è vuota
-		//
-		//			s.append("Contenuto borsa ("+this.getPeso()+"kg/"+this.getPesoMax()+"kg): ");
-		//
-		//			for(Attrezzo a : this.attrezzi.values())
-		//			s.append(a.getNome()+ " (" + a.getPeso()+"kg) " );
-		//		}
-		//		else 
-		//			s.append("Borsa vuota");
-		//		return s.toString();
 	}
 
 	//STAMPA LE LISTE [ ....... ]
@@ -231,6 +168,22 @@ public class Borsa {
 		return "Borsa vuota";
 	}		
   
+	public String toString() {
+		
+		StringBuilder s = new StringBuilder();
+				
+				if (!this.attrezzi.isEmpty()) { //se non è vuota
+		
+					s.append("Contenuto borsa ("+this.getPeso()+"kg/"+this.getPesoMax()+"kg): ");
+		
+					for(Attrezzo a : this.attrezzi.values())
+					s.append(a.getNome()+ " (" + a.getPeso()+"kg) " );
+				}
+				else 
+					s.append("Borsa vuota");
+				return s.toString();
+		
+	}
 	
 
 
@@ -296,8 +249,4 @@ public class Borsa {
 
 		return nuovaMappa;
 	}
-
-
-
-
 }

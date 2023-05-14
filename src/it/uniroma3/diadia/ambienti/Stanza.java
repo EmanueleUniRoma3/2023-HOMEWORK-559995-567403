@@ -28,10 +28,8 @@ public class Stanza {
 	private String nome;
 
 	private Map<String,Attrezzo> attrezzi;
-	private int numeroAttrezzi;
 
 	private Map<String, Stanza> stanzeAdiacenti;
-	private int numeroStanzeAdiacenti;
 
 	private Set<String> direzioni;
 

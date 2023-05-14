@@ -23,12 +23,11 @@ public class Partita {
 
 
 	//quando creo una partita di conseguenza creo: Giocatore, un Labirinto
-	public Partita(IO IOconsole){
+	public Partita(Labirinto labirinto ,IO IOconsole){
 		this.finita = false;
 		this.io = IOconsole;
 		//this.labirinto = new LabirintoBuilder();//quando creo la partito devo creare il labirinto, che avrà delle stanze di default
-		this.lab = new LabirintoBuilder()
-				.getLabirinto();
+		this.lab = labirinto;
 		this.giocatore = new Giocatore(IOconsole, lab.getStanzaIniziale()); //quando creo la partita creo anche un giocatore 
 		this.stanzaVincente = lab.getUscita();
 		

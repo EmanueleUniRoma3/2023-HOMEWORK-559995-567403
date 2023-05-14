@@ -1,16 +1,15 @@
 package it.uniroma3.diadia.comando;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.BeforeEach;
-
 import org.junit.jupiter.api.Test;
 
+import it.uniroma3.diadia.IOConsole;
 import it.uniroma3.diadia.Partita;
-
+import it.uniroma3.diadia.ambienti.Labirinto;
+import it.uniroma3.diadia.ambienti.LabirintoBuilder;
 import it.uniroma3.diadia.ambienti.Stanza;
-
-import it.uniroma3.diadia.*;
 
 class ComandoVaiTest {
 
@@ -20,9 +19,9 @@ private Partita partita;
 
 private IOConsole IOConsole;
 
-private Stanza N11;
+private Labirinto labirinto;
 
-private Stanza AulaCampus;
+
 
 
 @BeforeEach
@@ -34,15 +33,16 @@ this.comando = new ComandoVai();
 
 this.IOConsole = new IOConsole();
 
-this.partita = new Partita(IOConsole);
+this.labirinto = new LabirintoBuilder()
+	.addStanzaIniziale("N11")
+	.addStanza("Aula Campus")
+	.addStanza("Aula N10")
+	.addAdiacenza("N11", "Aula N10", "nord")
+	.addAdiacenza("N11", "Aula Campus", "sud")
+	.getLabirinto();
+	
 
-this.N11 = new Stanza("N11");
-
-this.partita.getLabirinto().setStanzaCorrente(N11);
-
-this.AulaCampus = new Stanza("AulaCampus");
-
-this.N11.impostaStanzaAdiacente("sud", AulaCampus);
+this.partita = new Partita(this.labirinto ,IOConsole);
 
 }
 
@@ -51,13 +51,13 @@ this.N11.impostaStanzaAdiacente("sud", AulaCampus);
 
 void testEseguiComandoVai() {
 
-assertEquals(N11, this.partita.getLabirinto().getStanzaCorrente());
+assertEquals(this.labirinto.getStanze().get("N11"), this.partita.getGiocatore().getPosizione());
 
-this.comando.setParametro("sud");
+this.comando.setParametro("nord");
 
 this.comando.esegui(this.partita);
 
-assertEquals(this.AulaCampus, this.partita.getLabirinto().getStanzaCorrente());
+assertEquals(this.labirinto.getStanze().get("Aula N10"), this.partita.getGiocatore().getPosizione());
 
 }
 

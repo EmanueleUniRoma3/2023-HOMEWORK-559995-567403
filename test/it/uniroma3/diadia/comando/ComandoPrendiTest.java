@@ -1,6 +1,7 @@
 package it.uniroma3.diadia.comando;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -8,6 +9,8 @@ import org.junit.jupiter.api.Test;
 import it.uniroma3.diadia.IO;
 import it.uniroma3.diadia.IOConsole;
 import it.uniroma3.diadia.Partita;
+import it.uniroma3.diadia.ambienti.Labirinto;
+import it.uniroma3.diadia.ambienti.LabirintoBuilder;
 import it.uniroma3.diadia.attrezzi.Attrezzo;
 
 class ComandoPrendiTest {
@@ -15,8 +18,7 @@ class ComandoPrendiTest {
 	private ComandoPrendi comandoPrendi;
 	private Partita partita;
 	private IO io;
-	private Attrezzo attrezzo;
-	
+	private Labirinto labirinto;
 	
 	
 	
@@ -26,20 +28,25 @@ class ComandoPrendiTest {
 		
 		this.comandoPrendi = new ComandoPrendi();
 		this.io = new IOConsole();
-		this.partita = new Partita(io);
-		this.attrezzo = new Attrezzo("Torcia", 3);
-		this.partita.getLabirinto().getStanzaCorrente().addAttrezzo(this.attrezzo);
+		
+		this.labirinto = new LabirintoBuilder()
+				
+				.addStanzaIniziale("Atrio")
+				.addAttrezzo("Atrio", "torcia", 3)
+				.getLabirinto();
+		
+		this.partita = new Partita(labirinto ,io);
 			
 	}
 
 	@Test
 	void testEseguiComandoPrendi() {
 		
-			this.comandoPrendi.setParametro("Torcia");
+			this.comandoPrendi.setParametro("torcia");
 			this.comandoPrendi.esegui(this.partita);
 			
-			assertTrue(this.partita.getGiocatore().getBorsa().hasAttrezzo("Torcia"));
-			assertFalse(this.partita.getLabirinto().getStanzaCorrente().hasAttrezzo("Torcia"));
+			assertTrue(this.partita.getGiocatore().getBorsa().hasAttrezzo("torcia"));
+			assertFalse(this.partita.getLabirinto().getStanzaIniziale().hasAttrezzo("torcia"));
 	}
 
 	@Test

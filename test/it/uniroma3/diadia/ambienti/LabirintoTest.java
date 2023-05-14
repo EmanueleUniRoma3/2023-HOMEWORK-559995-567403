@@ -1,6 +1,6 @@
 package it.uniroma3.diadia.ambienti;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -8,26 +8,38 @@ import org.junit.jupiter.api.Test;
 public class LabirintoTest {
 	
 	private Labirinto labirinto;
-	private Stanza biblioteca;
-	private Stanza atrio;
 	
 	
 	@BeforeEach
 	public void setUp(){
-		labirinto = new Labirinto();
-		biblioteca = new Stanza("Biblioteca");
-		atrio = new Stanza("Atrio");
+		labirinto = new LabirintoBuilder()
+				.addStanzaFinale("Biblioteca")
+				.addStanzaIniziale("Atrio")
+				.getLabirinto();
 	}
 	
 	
 	@Test
 	public void testGetStanzaCorrente() {
-		assertEquals(atrio.getNome(), labirinto.getStanzaIniziale().getNome());	
+		assertEquals(labirinto.getStanze().get("Atrio"), labirinto.getStanzaIniziale());
 	}
 	
 	@Test
+	public void testSetStanzaCorrente() {
+		labirinto.setStanzaIniziale(labirinto.getStanze().get("Biblioteca"));
+		assertEquals(labirinto.getStanze().get("Biblioteca"), labirinto.getUscita());
+	}
+	
+	
+	@Test
 	public void testGetUscita() {
-		assertEquals(biblioteca.getNome(), labirinto.getUscita().getNome());
+		assertEquals(labirinto.getStanze().get("Biblioteca"), labirinto.getUscita());
+	}
+	
+	@Test
+	public void testSetUscita() {
+		labirinto.setUscita(labirinto.getStanze().get("Atrio"));
+		assertEquals(labirinto.getStanze().get("Atrio"), labirinto.getUscita());
 	}
 	
 	

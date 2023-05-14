@@ -55,8 +55,12 @@ nome particolare (ad esempio "passepartout")*/
 	@Override
 	public String getDescrizione() {
 
-		return "La direzione "+ this.nomeDirezioneBloccata + " è bloccata!"
-				+ "\nHai bisogno del Passepartout: " + this.chiave + ".\n" + super.getDescrizione()  ;
+		if(!this.hasAttrezzo(chiave))
+			return "La direzione "+ this.nomeDirezioneBloccata + " è bloccata!"
+			+ "\nHai bisogno del Passepartout: " + this.chiave + ".\n" + super.getDescrizione()  ;
+
+		return "Hai sbloccato la direzione "+ this.nomeDirezioneBloccata + "! "
+		+ super.getDescrizione()  ;
 	}
 
 

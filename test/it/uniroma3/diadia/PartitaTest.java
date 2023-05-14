@@ -12,22 +12,27 @@ class PartitaTest {
 	
 	IO io = new IOConsole();
 	
-	private Partita vinta = new Partita(io);
-	private Partita persa = new Partita(io);
+	Labirinto labirinto;
 	
-	private Stanza atrio = new Stanza("atrio");
-	private Stanza N11 = new Stanza("N11");
+	private Partita vinta;
+	private Partita persa;
 	
 	@BeforeEach
 	
 	public void SetUp() {
 		
-		this.vinta.getLabirinto().setStanzaCorrente(atrio);
-		this.vinta.getLabirinto().setUscita(atrio);
+		this.labirinto = new LabirintoBuilder()
+				
+				.addStanzaIniziale("Atrio")
+				.addStanza("N11")
+				.getLabirinto();
 		
+		this.vinta = new Partita(this.labirinto, io);
+		this.persa = new Partita(this.labirinto, io);
 		
-		this.persa.getLabirinto().setStanzaCorrente(atrio);
-		this.persa.getLabirinto().setUscita(N11);
+		this.vinta.setStanzaVincente(this.labirinto.getStanze().get("Atrio"));
+		
+		this.persa.setStanzaVincente(this.labirinto.getStanze().get("N11"));
 		
 	}
 	

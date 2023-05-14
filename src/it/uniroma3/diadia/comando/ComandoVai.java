@@ -22,11 +22,11 @@ public class ComandoVai implements Comando {
 			return;
 		}
 
-		Stanza prossimaStanza = null;
-		prossimaStanza = partita.getLabirinto().getStanze().get(direzione);
+		Stanza StanzaCorrente = partita.getGiocatore().getPosizione();
+		Stanza prossimaStanza = StanzaCorrente.getStanzaAdiacente(direzione);
 
 		if (prossimaStanza == null)
-			io.mostraMessaggio("Direzione inesistente");
+			io.mostraMessaggio("Direzione inesistenteeee");
 		//altrimenti se richiamo la funzione di stanza bloccata e mi ritorna la stesssa perchè la direzione è blocccata 
 		//allora stampo Direzione Bloccata e la descrizione
 		else if (prossimaStanza.equals(partita.getGiocatore().getPosizione()))
