@@ -14,7 +14,7 @@ class FabbricaDiComandoFisarmonicaTest {
 	ComandoPosa comandoPosa;
 	ComandoPrendi comandoPrendi;
 	ComandoVai comandoVai;
-
+	FabbricaDiComandi fabbrica;
 
 
 	@BeforeEach
@@ -27,13 +27,14 @@ class FabbricaDiComandoFisarmonicaTest {
 		comandoPosa = new ComandoPosa();
 		comandoPrendi = new ComandoPrendi();
 		comandoVai = new ComandoVai();
-
+		fabbrica = new FabbricaDiComandiRiflessiva();
 	}
 
 	@Test
 	void testCostruisciComandoAiuto() {
 		assertEquals("Aiuto",comandoAiuto.getNome());		
 	}
+	
 
 	@Test
 	void testCostruisciComandoAiutoSbagliato() {

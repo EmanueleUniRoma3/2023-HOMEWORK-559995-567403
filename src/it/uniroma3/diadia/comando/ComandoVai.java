@@ -1,11 +1,12 @@
 package it.uniroma3.diadia.comando;
 
 import it.uniroma3.diadia.IO;
+
 import it.uniroma3.diadia.Partita;
 import it.uniroma3.diadia.ambienti.Stanza;
 
 
-public class ComandoVai implements Comando {
+public class ComandoVai extends AbstractComando {
 
 	private String direzione;
 
@@ -60,6 +61,13 @@ public class ComandoVai implements Comando {
 	public String getParametro() {
 		// TODO Auto-generated method stub
 		return this.direzione;
+	}
+
+
+	@Override
+	public String getMessaggio() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 

@@ -5,6 +5,11 @@ import it.uniroma3.diadia.Partita;
 public interface FabbricaDiComandi {
 
 	//primo metodo dell'interface
-	public Comando costruisci(String nomeComando);	
+	public AbstractComando costruisci(String nomeComando)
+			throws Exception;
+
+	
+	
 	public void setPartita(Partita partita);
+	
 }

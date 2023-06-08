@@ -6,7 +6,7 @@ import it.uniroma3.diadia.ambienti.Stanza;
 import it.uniroma3.diadia.attrezzi.Attrezzo;
 import it.uniroma3.diadia.giocatore.Borsa;
 
-public class ComandoPosa implements Comando {
+public class ComandoPosa extends AbstractComando {
 	
 	private String nomeAttrezzo;
 	
@@ -53,6 +53,14 @@ public class ComandoPosa implements Comando {
 	public String getParametro() {
 		// TODO Auto-generated method stub
 		return this.nomeAttrezzo;
+	}
+
+
+
+	@Override
+	public String getMessaggio() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

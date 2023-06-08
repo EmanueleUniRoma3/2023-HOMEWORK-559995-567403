@@ -2,8 +2,9 @@ package it.uniroma3.diadia.comando;
 
 import it.uniroma3.diadia.IO;
 import it.uniroma3.diadia.Partita;
+import it.uniroma3.diadia.attrezzi.Attrezzo;
 
-public class ComandoNonValido implements Comando {
+public class ComandoNonValido extends AbstractComando {
 
 	@Override
 	public void esegui(Partita partita) {
@@ -15,18 +16,14 @@ public class ComandoNonValido implements Comando {
 	}
 
 	@Override
-	public void setParametro(String parametro) {
-		// TODO Auto-generated method stub
-	}
-
-	@Override
 	public String getNome() {
 		// TODO Auto-generated method stub
 		return "ComandoNonValido";
 	}
 
+
 	@Override
-	public String getParametro() {
+	public String getMessaggio() {
 		// TODO Auto-generated method stub
 		return null;
 	}

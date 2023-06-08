@@ -14,7 +14,7 @@ public class IOConsole implements IO {
 		
 		Scanner scannerDiLinee = new Scanner(System.in); //null non fa parte del mondo di system.in
 		String riga = scannerDiLinee.nextLine();
-		//scannerDiLinee.close();
+		scannerDiLinee.close();
 		return riga;
 	}
 }

@@ -1,10 +1,15 @@
 
 
 package it.uniroma3.diadia;
+import java.io.FileNotFoundException;
+
+import java.io.FileReader;
+import java.io.FileWriter;
+
 import it.uniroma3.diadia.ambienti.Labirinto;
-import it.uniroma3.diadia.ambienti.LabirintoBuilder;
+import it.uniroma3.diadia.ambienti.Labirinto.LabirintoBuilder;
 import it.uniroma3.diadia.comando.FabbricaDiComandi;
-import it.uniroma3.diadia.comando.FabbricaDiComandoFisarmonica;
+import it.uniroma3.diadia.comando.FabbricaDiComandiRiflessiva;
 /**
  * Classe principale di diadia, un semplice gioco di ruolo ambientato al dia.
  * Per giocare crea un'istanza di questa classe e invoca il metodo gioca
@@ -44,11 +49,11 @@ public class DiaDia {
 		this.io = IOConsole;
 		this.labirinto = labirinto;
 		this.partita = new Partita(this.labirinto , IOConsole);
-		processa = new FabbricaDiComandoFisarmonica();
+		processa = new FabbricaDiComandiRiflessiva();
 		processa.setPartita(this.partita);
 	}
 
-	public void gioca() {
+	public void gioca() throws Exception {
 		String 	istruzione; 
 
 		io.mostraMessaggio(MESSAGGIO_BENVENUTO);
@@ -58,37 +63,31 @@ public class DiaDia {
 		while (processa.costruisci(istruzione) != null && !partita.isFinita());
 	}
 
-	public static void main(String[] argc) {
+	public static void main(String[] argc) throws Exception {
 
 		IO io = new IOConsole();
-		final Labirinto labirinto = new LabirintoBuilder()
-
-				.addStanzaBloccata("atrio", "nord", "passepartout")
-				.addStanza("aulaN11")
-				.addStanza("aulaN10")
-				.addStanzaBuia("laboratorio")
-				.addStanzaFinale("biblioteca")
-				.addAttrezzo("atrio","osso", 1)
-				.addAttrezzo("aulaN10", "lanterna", 3)
-				.addAttrezzo("laboratorio","passepartout", 2)
-				.addAdiacenza("atrio", "biblioteca", "nord")
-				.addAdiacenza("atrio", "aulaN10", "sud")
-				.addAdiacenza("atrio", "aulaN11", "est")
-				.addAdiacenza("atrio", "laboratorio", "ovest")
-				.addAdiacenza("aulaN11", "laboratorio", "est")
-				.addAdiacenza("aulaN11", "atrio", "ovest")
-				.addAdiacenza("aulaN10", "atrio", "nord")
-				.addAdiacenza("aulaN10", "aulaN11", "est")
-				.addAdiacenza("aulaN10", "laboratorio", "ovest")
-				.addAdiacenza("laboratorio", "atrio", "est")
-				.addAdiacenza("laboratorio", "aulaN11", "ovest")
-				.addAdiacenza("biblioteca", "atrio", "sud")
-				.getLabirinto();
 		
-		labirinto.setStanzaIniziale(labirinto.getStanze().get("atrio"));
-
+		String nomeFile = io.leggiRiga();
+		FileReader file = null;
+		
+		try {
+		file = new FileReader(nomeFile);
+		if(file.ready()) {
+		final Labirinto labirinto = Labirinto.newBuilder(nomeFile)
+									.getLabirinto();
 		DiaDia gioco = new DiaDia(labirinto ,io);
 		gioco.gioca(); 
+		}
+		else
+			System.out.println("Vuoto");
+			
+		}
+		catch(FileNotFoundException e) {
+			System.out.println("File non trovato!! ");
+		}
+		finally {
+			file.close();
+		}
 
 
 	}

@@ -1,7 +1,7 @@
 package it.uniroma3.diadia.giocatore;
 
 import it.uniroma3.diadia.IO;
-import it.uniroma3.diadia.ambienti.LabirintoBuilder;
+
 import it.uniroma3.diadia.ambienti.Stanza;
 
 public class Giocatore {

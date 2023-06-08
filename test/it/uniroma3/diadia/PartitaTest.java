@@ -12,7 +12,7 @@ class PartitaTest {
 	
 	IO io = new IOConsole();
 	
-	Labirinto labirinto;
+	CaricatoreLabirinto labirinto;
 	
 	private Partita vinta;
 	private Partita persa;

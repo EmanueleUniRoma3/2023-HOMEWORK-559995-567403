@@ -37,6 +37,10 @@ public class Borsa {
 		this.numeroAttrezzi = 0;
 		this.io = io;
 	}
+	
+	public Map<String, Attrezzo> getMappaAttrezzi(){
+		return this.attrezzi;
+	}
 
 	public boolean addAttrezzo(Attrezzo attrezzo) {
 		if((attrezzo.getPeso() + this.getPeso()) <= this.pesoMax)
@@ -90,7 +94,7 @@ public class Borsa {
 		return a;
 	}
 
-	//STAMPA MAPPE ()
+	//STAMPA MAPPE {( ... )} ; {( ... )
 	public String toString(Map<Integer, Set<Attrezzo>> mappaOrdinata) {
 
 		if (!this.attrezzi.isEmpty()) {

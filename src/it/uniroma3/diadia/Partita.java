@@ -1,7 +1,7 @@
 package it.uniroma3.diadia;
 
 import it.uniroma3.diadia.ambienti.Labirinto;
-import it.uniroma3.diadia.ambienti.LabirintoBuilder;
+
 import it.uniroma3.diadia.ambienti.Stanza;
 import it.uniroma3.diadia.giocatore.Giocatore;
 /**
@@ -30,7 +30,6 @@ public class Partita {
 		this.lab = labirinto;
 		this.giocatore = new Giocatore(IOconsole, lab.getStanzaIniziale()); //quando creo la partita creo anche un giocatore 
 		this.stanzaVincente = lab.getUscita();
-		
 	}
 
 
@@ -56,6 +55,7 @@ public class Partita {
 		this.stanzaVincente = stanza;
 	}
 
+	
 
 	/**
 	 * Restituisce vero se e solo se la partita e' stata vinta

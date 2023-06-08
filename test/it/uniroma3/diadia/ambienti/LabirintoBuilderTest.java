@@ -1,25 +1,35 @@
 package it.uniroma3.diadia.ambienti;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 
-import java.util.Map;
+import java.io.FileNotFoundException;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import it.uniroma3.diadia.FormatoFileNonValidoException;
 import it.uniroma3.diadia.IO;
 import it.uniroma3.diadia.IOConsole;
-import it.uniroma3.diadia.attrezzi.Attrezzo;
+import it.uniroma3.diadia.ambienti.Labirinto.LabirintoBuilder;
 
 public class LabirintoBuilderTest {
 	protected Labirinto labirinto;
 	protected IO IO;
+	Labirinto.LabirintoBuilder lb;
 	
 	@BeforeEach
-	public void setUp() {
+	public void setUp() throws FileNotFoundException, FormatoFileNonValidoException {
 		this.IO = new IOConsole();
+		lb = Labirinto.newBuilder("labirinto1.txt");
 	}
+	
+	@Test
+	public void testAddStanza() {
+		lb.addStanza("stanzetta");
+		Stanza expected = new Stanza("stanzetta");
+		assertEquals(expected, lb.getStanze().get("stanzetta"));
+	}
+
 	
 	
 	@Test
